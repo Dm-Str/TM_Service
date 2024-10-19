@@ -16,5 +16,3 @@ class KafkaConsumer:
 
     def send_notigication(self, data):
         print(data)
-
-    

@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'transfer_service.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_tm_service',  
+        'USER': 'main',      
+        'PASSWORD': '123',  
+        'HOST': 'localhost',    
+        'PORT': '5432',         
     }
 }
 

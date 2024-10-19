@@ -10,7 +10,16 @@ kafka_producer = KafkaProduce('transfer_topic')
 
 
 class TransferViewSet(viewsets.ViewSet):
+    queryset = Transaction.objects.all()
+
     def create(self, request):
+        """POST api/transfers/
+        {
+            "from_account": "12345",
+            "to_account": "67890",
+            "amount": 1000.00
+        }
+        """
         transaction_id = str(uuid.uuid4())
         data = {
             'transaction_id': transaction_id,
@@ -25,13 +34,16 @@ class TransferViewSet(viewsets.ViewSet):
             **request.data,
             status='PENDING',
         )
+        return Response(data, status=201)
     
     def retrieve(self, request, pk=None):
+        """
+            GET api/transfers/12345"""
         transaction = Transaction.objects.get(transaction_id=pk)
         return Response({
             'transaction_id': transaction.transaction_id,
             'status': transaction.status,
-            'message': 'Trasaction status retrieved',
+            'message': 'Transfer initiated successfully',
             'timestamp': transaction.timestamp.isoformat()
         })
     
